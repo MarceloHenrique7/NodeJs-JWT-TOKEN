@@ -1,93 +1,87 @@
-Authentication and User Management API
-This API provides basic functionalities for user registration, login, and management, using Express, MongoDB, and JWT for authentication.
+Node.js JWT Token Authentication API
+Esta é uma API Node.js que utiliza JWT para autenticação e realiza operações CRUD em usuários. A aplicação está hospedada em https://nodejs-jwt-token.onrender.com.
 
-Features
-User Registration: Allows for creating a new user.
-User Login: Allows authentication and generation of a JWT token for access to protected routes.
-Get User Data: Allows fetching information about a specific user, excluding the password.
-Prerequisites
-Before starting, make sure you have the following installed:
+Sumário:
 
-Node.js (version 14 or higher)
-MongoDB (local or cloud instance)
-A .env file configured with the necessary environment variables
-Installation
-Clone the repository:
+  Instalação
+  Configuração
+  Endpoints
+  Tecnologias Utilizadas
 
-bash
-Copiar código
-git clone <REPOSITORY_URL>
-Navigate to the project directory:
+Instalação
+1.Clone o repositório:
+  git clone https://github.com/seu-usuario/nodejs-jwt-token-authentication.git
+2.Navegue até o diretório do projeto:
+  cd nodejs-jwt-token-authentication
+3.Instale as dependências:
+  npm install
+  
+Configuração
+Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+  DB_USER=seu_usuario
+  DB_PASS=sua_senha
+  SECRET=sua_chave_secreta
 
-bash
-Copiar código
-cd repository-name
-Install the dependencies:
+Execute a aplicação em modo de produção:
+  npm run production
 
-bash
-Copiar código
-npm install
-Create a .env file at the root of the project with the following content:
+  
+Endpoints:
+  Registro de Usuário
+  URL: /auth/register
+  
+  Método: POST
+  
+  Body:
+    {
+    "name": "Seu Nome",
+    "email": "seuemail@example.com",
+    "password": "sua_senha",
+    "confirmpassword": "sua_senha"
+    }
+  Login de Usuário
+    URL: /auth/login
+  
+    Método: POST
+  
+    Body:
+  
+    json: {
+      "email": "seuemail@example.com",
+      "password": "sua_senha"
+    }
+    Obter Detalhes do Usuário
+    
+    URL: /user/:id
+    Método: GET
+    Headers: Authorization: Bearer {token}
+    Atualizar Usuário
+    URL: /user/:id
+    
+    Método: PUT
+    
+    Headers: Authorization: Bearer {token}
+    
+    Body:
+    {
+    "name": "Novo Nome",
+    "email": "novoemail@example.com",
+    "password": "nova_senha",
+    "confirmpassword": "nova_senha"
+    }
 
-env
-Copiar código
-SECRET=<your_jwt_secret_key>
-DB_USER=<your_mongodb_user>
-DB_PASS=<your_mongodb_password>
-Endpoints
-1. User Registration
-Route: POST /auth/register
-Request Body:
-json
-Copiar código
-{
-  "name": "User Name",
-  "email": "email@example.com",
-  "password": "password",
-  "confirmpassword": "confirm_your_password"
-}
-Responses:
-201 Created: User created successfully.
-422 Unprocessable Entity: Invalid data or validation errors.
-500 Internal Server Error: Server error.
-2. User Login
-Route: POST /auth/login
-Request Body:
-json
-Copiar código
-{
-  "email": "email@example.com",
-  "password": "password"
-}
-Responses:
-200 OK: Successful authentication. Returns a JWT token.
-422 Unprocessable Entity: Invalid data or incorrect password.
-404 Not Found: User not found.
-500 Internal Server Error: Server error.
-3. Get User Data (Protected)
-Route: GET /user/:id
-Parameters:
-id (URL): User ID.
-Request Header:
-Authorization: Bearer <jwt_token>
-Responses:
-200 OK: Returns user data (excluding password).
-401 Unauthorized: Invalid or missing token.
-404 Not Found: User not found.
-500 Internal Server Error: Server error.
-Database Configuration
-This API uses MongoDB to store data. Ensure that MongoDB is correctly configured and accessible with the provided credentials.
-
-Running the Server
-To start the server, run the following command:
-
-bash
-Copiar código
-npm start
-The server will be available at http://localhost:3000.
-
-Contributing
-Contributions are welcome! If you find a bug or have a suggestion for improvement, feel free to open an issue or submit a pull request.
-
-License
-This project is licensed under the MIT License.
+    Deletar Usuário
+    URL: /user/:id
+    Método: DELETE
+    Headers: Authorization: Bearer {token}
+    
+Tecnologias Utilizadas:
+  Node.js
+  Express
+  MongoDB
+  Mongoose
+  JWT (Json Web Token)
+  Bcrypt
+  Dotenv
+  
+Licença Este projeto está licenciado sob a licença MIT.
